@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# Visual Workflow Builder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, extensible visual workflow builder for AI and data pipelines, featuring node abstraction, beautiful styling, dynamic text node logic, and backend integration for DAG validation.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Node Abstraction:** Easily create new node types using a shared `BaseNode` component. All nodes (inputs, outputs, LLMs, text, vector DB, etc.) inherit unified styling and logic.
+- **Dynamic Text Node:** The Text node auto-resizes in width and height as you type, and supports variable handles for `{{variable}}` patterns.
+- **Beautiful UI:** Consistent, modern design using Tailwind CSS and Lucide icons.
+- **Backend Integration:** Submit your pipeline to a FastAPI backend, which checks if your flow is a DAG and returns node/edge counts.
+- **Confetti & Alerts:** Get instant, delightful feedback on successful DAG validation or warnings for cycles.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### 1. **Install Dependencies**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+cd frontend
+npm install
+```
 
-### `npm run build`
+### 2. **Run the Frontend**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+npm start
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. **Run the Backend**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+cd ../backend
+pip install fastapi uvicorn pydantic
+uvicorn main:app --reload
+```
+The backend will be available at [http://localhost:8000](http://localhost:8000).
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Drag and drop nodes** from the palette to build your workflow.
+- **Connect nodes** using handles to define data flow.
+- **Text Node:** Type text and use `{{variable}}` to create dynamic input handles.
+- **Submit:** Click the floating Submit button (bottom right) to validate your pipeline.
+- **Feedback:** If your flow is a DAG, a confetti overlay and success message appear. If not, a warning overlay is shown.
+- **Backend Response:** The backend returns the number of nodes, edges, and whether the flow is a DAG.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Node Types
 
-## Learn More
+- **Input Node:** Entry point for user or external data.
+- **Output Node:** Displays or exports the final output.
+- **LLM Node:** Connects to a large language model for text generation.
+- **Text Node:** Static or templated text with variable support.
+- **Vector DB Node:** Stores and retrieves vector embeddings.
+- **Summarizer Node:** Summarizes input text using AI.
+- **File Output Node:** Saves results to a file.
+- **Webhook Listener Node:** Triggers workflow from external events.
+- **Google Calendar Node:** Integrates with Google Calendar.
+- **API Call Node:** Makes HTTP API calls.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Customization
 
-### Code Splitting
+- **Add New Nodes:** Create a new file in `src/nodes/`, import `BaseNode`, and pass your fields, handles, and description.
+- **Styling:** All nodes use Tailwind CSS for easy theming and customization.
+- **Icons:** Use [Lucide icons](https://lucide.dev/icons/) for beautiful, consistent icons.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Backend API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **POST** `/pipelines/parse`
+  - **Request:** `{ nodes: [...], edges: [...] }`
+  - **Response:** `{ num_nodes: int, num_edges: int, is_dag: bool }`
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## License
 
-### Advanced Configuration
+MIT
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Credits
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Built with [React Flow](https://reactflow.dev/), [Tailwind CSS](https://tailwindcss.com/), [Lucide Icons](https://lucide.dev/), and [FastAPI](https://fastapi.tiangolo.com/).

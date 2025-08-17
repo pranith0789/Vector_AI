@@ -1,37 +1,18 @@
-// // toolbar.js
-
-// import { DraggableNode } from './draggableNode';
-
-// export const PipelineToolbar = () => {
-
-//     return (
-//         <div style={{ padding: '10px' }}>
-//             <div style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-//                 <DraggableNode type='customInput' label='Input' />
-//                 <DraggableNode type='llm' label='LLM' />
-//                 <DraggableNode type='customOutput' label='Output' />
-//                 <DraggableNode type='text' label='Text' />
-//             </div>
-//         </div>
-//     );
-// };
-
-
 import React, {useState} from 'react'
 import {DraggableNode} from './draggableNode'
 import {
-    FileInput,                // customInput: InputNode
-    Bot,                 // llm: LLMNode
-    SquareTerminal,      // customOutput: OutputNode
-    FileText,            // text: TextNode
-    Globe,               // API: ApiCallNode
-    Database,            // faiss: FAISSNode
-    Network,             // melvis: MelvisNode
-    FileOutput,          // fileoutput: FileOutputNode (fallback to FileDown)
-    Calendar,            // gc: GoogleCalendarNode
-    FileTextIcon,        // summarize: SummarizerNode
-    CloudSun,            // weather: WeatherNode
-    Webhook              // webhook: WebhookListenerNode
+    FileInput,                
+    Bot,                 
+    SquareTerminal,      
+    FileText,            
+    Globe,               
+    Database,                        
+    FileOutput,          
+    Calendar,                  
+    CloudSun,
+    Clapperboard,
+    Webhook,
+    BookOpenText            
   } from "lucide-react";
 
 const tabs = [
@@ -50,11 +31,11 @@ const tabs = [
     ],
     LLM: [
       { type: "llm", label: "LLM" },
-      { type: "summarizer", label: "Summarizer" },
+      { type: "director", label: "Directora" },
     ],
     Knowledge: [
-      { type: "faiss", label: "FAISS" },
-      { type: "melvis", label: "MELVIS" },
+      { type: "faiss", label: "Vector DB" },
+      { type: "faq", label: "FAQ" },
     ],
     Integrations: [
       {type:"API", label:"API"},
@@ -74,10 +55,10 @@ const tabs = [
     text: FileText,
     API: Globe,
     faiss: Database,
-    melvis: Network,
+    faq: BookOpenText,
     fileOutput: FileOutput,
     googleCalendar: Calendar,
-    summarizer: FileTextIcon,
+    director: Clapperboard,
     weather: CloudSun,
     webhookListener: Webhook,
   };

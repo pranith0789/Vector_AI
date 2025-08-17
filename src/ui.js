@@ -12,14 +12,16 @@ import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
 import { ApiCallNode } from './nodes/ApiCallNode';
 import { FAISSNode } from './nodes/FAISSNode';
-import { MelvisNode } from './nodes/MelvisNode';
+import { FAQNode } from './nodes/FAQ';
 import { FileOutputNode } from './nodes/FileOutputNode';
-import { GoogleCalendarNode } from './nodes/GoogleCalenderNode';
-import { SummarizerNode } from './nodes/SummarizerNode';
+import { GoogleCalenderNode } from './nodes/GoogleCalenderNode';
+import { VideoNode } from './nodes/Video';
 import { WeatherNode } from './nodes/WeatherNode';
 import { WebhookListenerNode } from './nodes/WebhookListenerNode';
+import { SubmitButton } from './submit';
 
 import 'reactflow/dist/style.css';
+import { Video } from 'lucide-react';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -30,12 +32,12 @@ const nodeTypes = {
   text: TextNode,
   API:ApiCallNode,
   faiss:FAISSNode,
-  melvis:MelvisNode,
-  fileoutput:FileOutputNode,
-  gc:GoogleCalendarNode,
-  summarize:SummarizerNode,
+  faq:FAQNode,
+  fileOutput:FileOutputNode,
+  googleCalendar:GoogleCalenderNode,
+  director:VideoNode,
   weather:WeatherNode,
-  webhook:WebhookListenerNode
+  webhookListener:WebhookListenerNode
 };
 
 const selector = (state) => ({
@@ -106,7 +108,7 @@ export const PipelineUI = () => {
 
     return (
         <>
-        <div ref={reactFlowWrapper} style={{width: '100wv', height: '100vh'}}>
+        <div ref={reactFlowWrapper} style={{width: '100wv', height:'100vh'}}>
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -125,6 +127,14 @@ export const PipelineUI = () => {
                 <Controls />
                 <MiniMap />
             </ReactFlow>
+          </div>
+          <div style={{
+            position: 'fixed',
+            bottom: 5,
+            right: 32,
+            zIndex: 1000
+          }}>
+            <SubmitButton nodes={nodes} edges={edges} />
         </div>
         </>
     )

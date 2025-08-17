@@ -1,18 +1,20 @@
-// /frontend/src/nodes/FileOutputNode.js
 import { useState } from 'react';
 import { Position } from 'reactflow';
 import { BaseNode } from './Basenode';
+import { useStore } from '../store';
 
 export const FileOutputNode = ({ id }) => {
   const [fileName, setFileName] = useState('output.txt');
-
+  const removeNode = useStore(state => state.removeNode)
   return (
     <BaseNode
       id={id}
       title="File Output"
+      description="Saves workflow results to a downloadable file."
       handles={[
         { type: 'target', position: Position.Left, id: 'content' },
       ]}
+      onDelete={() => removeNode(id)}
     >
       <label className="block text-sm font-medium text-gray-700">
         File Name:
