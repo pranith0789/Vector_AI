@@ -18,7 +18,7 @@ export const ApiCallNode = ({ id }) => {
       ]}
       onDelete={() => removeNode(id)}
     >
-      {/* URL Field */}
+      
       <label className="block text-sm font-medium text-gray-700 mb-2">
         URL:
         <input
@@ -30,7 +30,6 @@ export const ApiCallNode = ({ id }) => {
         />
       </label>
 
-      {/* API Key Field */}
       <label className="block text-sm font-medium text-gray-700">
         API Key:
         <input

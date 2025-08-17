@@ -53,9 +53,13 @@ def is_dag(nodes: List[Node], edges: List[Edge]) -> bool:
     return True  
 
 
-@app.post("/check-dag")
+@app.post("/pipelines/parse")
 async def check_dag(flow:Flow):
     print("Function started")
-    result=is_dag(flow.nodes,flow.edges)
+    result = is_dag(flow.nodes, flow.edges)
+    node_count = len(flow.nodes)
+    edge_count = len(flow.edges)
     print(result)
-    return {"isDAG":result}
+    print(node_count)
+    print(edge_count)
+    return {"isDAG": result, "nodeCount": node_count, "edgeCount": edge_count}

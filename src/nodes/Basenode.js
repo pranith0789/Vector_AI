@@ -9,7 +9,7 @@ export const BaseNode = ({ id, title,description,children, handles = [], onDelet
           <CircleX/>
         </button>
       )}
-      {/* Title */}
+      
       <div>
         <strong>{title}</strong>
         {description && (
@@ -17,12 +17,12 @@ export const BaseNode = ({ id, title,description,children, handles = [], onDelet
         )}
       </div>
 
-      {/* Fields / Content */}
+      
       <div className="mt-2">
         {children}
       </div>
 
-      {/* Handles */}
+      
       {handles.map((h, idx) => (
         <Handle
           key={idx}

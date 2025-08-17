@@ -1,75 +1,3 @@
-// import { SendHorizonal } from "lucide-react";
-// import { useState } from "react";
-// import Confetti from "react-confetti"
-// import { useStoreApi } from "reactflow";
-
-// export const SubmitButton = ({nodes, edges}) => {
-//     const [showConfetti, setShowConfetti] = useState(false);
-//     const [warning, setWarning] = useState("")
-
-
-//     const handlesubmit = async() =>{
-//         const response = await fetch('http://localhost:8000/check-dag',{
-//             method:'Post',
-//             headers:{'Content-Type':'application/json'},
-//             body:JSON.stringify({
-//                 nodes:nodes.map(n => ({id:n.id})),
-//                 edges:edges.map(e => ({source:e.source,target:e.target})),
-//             })
-//         })
-
-//         const data = await response.json()
-
-//         console.log(data)
-//         if(data.isDAG){
-//             setShowConfetti(true);
-//             setTimeout(()=> setShowConfetti(false),2000)
-//         }
-//         else{
-//             setWarning("⚠️ The workflow is NOT a DAG! Please remove cycles.")
-//         }
-//     } 
-
-//     return (
-//     <div
-//         style={{
-//             position: 'fixed',
-//             bottom: 32,
-//             right: 32,
-//             zIndex: 1000,
-//         }}
-//         >
-//         {showConfetti && <Confetti />}
-//       <button
-//         className="
-//           flex items-center gap-2
-//           px-6 py-3
-//           rounded-full
-//           bg-gradient-to-r from-blue-500 to-indigo-500
-//           text-white font-bold
-//           shadow-lg
-//           hover:from-blue-600 hover:to-indigo-600
-//           hover:scale-105
-//           transition-all duration-200
-//           border-none
-//           focus:outline-none
-//           focus:ring-2 focus:ring-blue-300
-//         "
-//         onClick={handlesubmit}
-//       >
-//         <span>Submit</span>
-//         <SendHorizonal size={22} />
-//       </button>
-//       {warning && (
-//         <div className="mt-4 p-3 bg-yellow-100 text-yellow-800 rounded shadow text-sm font-semibold">
-//           {warning}
-//         </div>
-//       )}
-//     </div>
-//     );
-// }
-
-
 import { SendHorizonal } from "lucide-react";
 import { useState, useEffect } from "react";
 import Confetti from "react-confetti";
@@ -88,10 +16,12 @@ export const SubmitButton = ({ nodes, edges }) => {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const { width, height } = useWindowSize();
+  const [nodeCount,setNodeCount] = useState("")
+  const [edgecount,setEdgeCount] = useState("")
 
   const handlesubmit = async () => {
     setShowWarning(false);
-    const response = await fetch('http://localhost:8000/check-dag', {
+    const response = await fetch('http://localhost:8000/pipelines/parse', {
       method: 'Post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -100,12 +30,14 @@ export const SubmitButton = ({ nodes, edges }) => {
       })
     });
     const data = await response.json();
+    setNodeCount(data.nodeCount)
+    setEdgeCount(data.edgeCount)
     if (data.isDAG) {
       setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 2500);
+      setTimeout(() => setShowConfetti(false), 4000);
     } else {
       setShowWarning(true);
-      setTimeout(() => setShowWarning(false), 2500);
+      setTimeout(() => setShowWarning(false), 4000);
     }
   };
 
@@ -137,6 +69,10 @@ export const SubmitButton = ({ nodes, edges }) => {
           >
             <div className="text-3xl font-bold text-green-600 mb-2">🎉 Success!</div>
             <div className="text-lg text-gray-700">You have created your workflow!</div>
+            <div className="mt-2 text-gray-800">
+              <span className="font-semibold">Nodes:</span> {nodeCount} &nbsp;
+              <span className="font-semibold">Edges:</span> {edgecount}
+            </div>
           </div>
         </div>
       )}

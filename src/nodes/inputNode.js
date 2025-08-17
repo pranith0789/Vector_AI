@@ -17,7 +17,7 @@ export const InputNode = ({ id, data }) => {
       ]}
       onDelete={() => removeNode(id)}
     >
-      {/* Name Field */}
+
       <label className="block text-sm font-medium text-gray-700 mb-2">
         Name:
         <input
@@ -28,7 +28,7 @@ export const InputNode = ({ id, data }) => {
         />
       </label>
 
-      {/* Type Field */}
+   
       <label className="block text-sm font-medium text-gray-700">
         Type:
         <select
